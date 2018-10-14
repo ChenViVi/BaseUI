@@ -1,0 +1,27 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    provided 'com.android.support:appcompat-v7:' + rootProject.ext.supportVer
+    provided 'com.android.support:design:'  + rootProject.ext.supportVer
+    provided 'com.umeng.sdk:common:latest.integration'
+    provided 'com.umeng.sdk:analytics:latest.integration'
+    provided 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
+}
