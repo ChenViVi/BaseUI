@@ -12,10 +12,10 @@ import com.iwritebug.baseui.widget.TabLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BaseTabActivity<T> extends BaseActivity {
+public abstract class BaseTabActivity<TabItem> extends BaseActivity {
 
     protected final List<Fragment> mFragmentList = new ArrayList<>();
-    protected BaseTabAdapter<T> mAdapter;
+    protected BaseTabAdapter<TabItem> mAdapter;
     private TabLayout tabLayout;
     private int selectedPosition;
 
@@ -30,7 +30,7 @@ public abstract class BaseTabActivity<T> extends BaseActivity {
 
     public abstract TabLayout getTabLayout();
 
-    public abstract BaseTabAdapter<T> getAdapter();
+    public abstract BaseTabAdapter<TabItem> getAdapter();
 
     public void onCreateFragments(){
 
@@ -53,7 +53,7 @@ public abstract class BaseTabActivity<T> extends BaseActivity {
         });
     }
 
-    public void addFragment(Fragment fragment, T tab){
+    public void addFragment(Fragment fragment, TabItem tab){
         mFragmentList.add(fragment);
         mAdapter.addItem(tab);
     }

@@ -5,28 +5,28 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BaseTabAdapter<T>{
+public abstract class BaseTabAdapter<Item>{
 
-    private List<T> mItems = new ArrayList<>();
+    private List<Item> mItems = new ArrayList<>();
 
     public int getCount() {
         return mItems.size();
     }
 
-    public T getItem(int i) {
+    public Item getItem(int i) {
         return mItems.get(i);
     }
 
-    public abstract View onSelectChanged(View view, int position, T item, boolean isSelected);
+    public abstract View onSelectChanged(View view, int position, Item item, boolean isSelected);
 
 
     public abstract int getItemId(int position);
 
-    public List<T> getItems() {
+    public List<Item> getItems() {
         return mItems;
     }
 
-    public void addItem(T item){
+    public void addItem(Item item){
         mItems.add(item);
     }
 }

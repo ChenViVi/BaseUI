@@ -32,12 +32,12 @@ public class RecyclerViewActivity extends BaseRecyclerViewActivity<Article,Recyc
     }
 
     @Override
-    protected RecyclerView.LayoutManager setLayoutManager() {
+    protected RecyclerView.LayoutManager getLayoutManager() {
         return new GridLayoutManager(mActivity,3);
     }
 
     @Override
-    protected RecyclerViewArticleAdapter setAdapter() {
+    protected RecyclerViewArticleAdapter getAdapter() {
         return new RecyclerViewArticleAdapter(mActivity, mData);
     }
 

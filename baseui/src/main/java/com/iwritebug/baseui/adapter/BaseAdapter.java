@@ -16,12 +16,12 @@ import java.util.List;
  * blog: http://supercwn.github.io/
  * GitHub: https://github.com/supercwn
  */
-public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
+public abstract class BaseAdapter<Item> extends RecyclerView.Adapter<BaseViewHolder> {
 
     /**
      * Base config
      */
-    public List<T> mData;
+    public List<Item> mData;
     protected Activity activity;
     private LayoutInflater mInflater;
 
@@ -33,8 +33,8 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
     private OnRecyclerViewItemChildClickListener mChildClickListener;
     private OnRecyclerViewItemChildLongClickListener mChildLongClickListener;
 
-    public BaseAdapter(Activity activity, List<T> data) {
-        mData = null == data ? new ArrayList<T>() : data;
+    public BaseAdapter(Activity activity, List<Item> data) {
+        mData = null == data ? new ArrayList<Item>() : data;
         this.activity = activity;
         mInflater = LayoutInflater.from(activity);
     }
@@ -94,11 +94,11 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
     /**
      * Base api
      */
-    protected abstract void convert(BaseViewHolder holder, T item, int position);
+    protected abstract void convert(BaseViewHolder holder, Item item, int position);
 
     protected abstract int getItemViewLayoutId(int viewType);
 
-    protected T getItem(int position) {
+    protected Item getItem(int position) {
         return mData.get(position);
     }
 

@@ -3,6 +3,7 @@ package com.iwritebug.baseui.activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -36,20 +37,23 @@ public abstract class BaseRecyclerViewActivity<Item, Adapter extends BaseAdapter
         super.onCreate(savedInstanceState);
         mRefreshLayout = getRefreshLayout();
         mRecyclerView = getRecyclerView();
-        mAdapter = setAdapter();
-        mRecyclerView.setLayoutManager(setLayoutManager());
-        mRecyclerView.setAdapter(mAdapter);
+        if (getAdapter() != null) {
+            mAdapter = getAdapter();
+            mRecyclerView.setAdapter(mAdapter);
+            mAdapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, Object item, int position) {
+                    Item i = (Item) item;
+                    BaseRecyclerViewActivity.this.onItemClick(view,  position,i);
+                }
+            });
+        }
+        mRecyclerView.setLayoutManager(getLayoutManager());
         setPullLoadEnable(false);
         setPullRefreshEnable(false);
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setOnLoadMoreListener(this);
-        mAdapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, Object item, int position) {
-                Item i = (Item) item;
-                BaseRecyclerViewActivity.this.onItemClick(view,  position,i);
-            }
-        });
+
     }
 
     protected RecyclerView getRecyclerView() {
@@ -64,7 +68,9 @@ public abstract class BaseRecyclerViewActivity<Item, Adapter extends BaseAdapter
         return findViewById(R.id.refreshLayout);
     }
 
-    protected abstract RecyclerView.LayoutManager setLayoutManager();
+    protected RecyclerView.LayoutManager getLayoutManager(){
+        return new LinearLayoutManager(mActivity);
+    }
 
     protected void setPullLoadEnable(boolean enable) {
         mRefreshLayout.setEnableLoadMore(enable);
@@ -120,7 +126,9 @@ public abstract class BaseRecyclerViewActivity<Item, Adapter extends BaseAdapter
         }
     }
 
-    protected abstract Adapter setAdapter();
+    protected  Adapter getAdapter(){
+        return null;
+    }
 
     protected void onItemClick(View view, int position, Item item){
 
